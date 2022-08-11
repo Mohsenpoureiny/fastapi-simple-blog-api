@@ -2,3 +2,5 @@ fastapi>=0.68.0,<0.69.0
 pydantic==1.9.1
 uvicorn[standard]==0.15.0
 SQLAlchemy
+pymysql
+cryptography

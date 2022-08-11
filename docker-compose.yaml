@@ -1,13 +1,16 @@
 version: '3.8'
 services:
   backend:
-    build: ./backend
+    build:
+      context: ./backend
+    working_dir: /code
     volumes:
-      - .:/code
+      - ./backend:/code
+    command: python3 -m uvicorn app.main:app --host 0.0.0.0 --port 8000
     environment:
-      - DATABASE_URL=mysql://root:aTh5ao8oLi9guizu@db:3306/library
+      - DATABASE_URL=mysql+pymysql://root:aTh5ao8oLi9guizu@db:3306/books
     ports:
-      - 8080:80
+      - 8000:8000
     depends_on:
       - db
   db:
@@ -16,7 +19,7 @@ services:
       - SYS_NICE
     restart: always
     environment:
-      - MYSQL_DATABASE=library
+      - MYSQL_DATABASE=books
       - MYSQL_ROOT_PASSWORD=aTh5ao8oLi9guizu
     ports:
       - '3306:3306'
